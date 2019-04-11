@@ -29,7 +29,10 @@ create table store_sales
     ss_net_profit             double
 )
 partitioned by (ss_sold_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location 's3a://mmux/${DIR}/store_sales';
+
+alter table store_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
 
 from ${SOURCE}.store_sales ss
 insert overwrite table store_sales partition (ss_sold_date_sk) 

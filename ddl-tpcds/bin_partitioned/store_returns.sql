@@ -26,7 +26,10 @@ create table store_returns
     sr_net_loss               double
 )
 partitioned by (sr_returned_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location 's3a://mmux/${DIR}/store_returns';
+
+alter table store_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
 
 from ${SOURCE}.store_returns sr
 insert overwrite table store_returns partition (sr_returned_date_sk) 

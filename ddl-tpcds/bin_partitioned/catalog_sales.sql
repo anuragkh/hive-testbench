@@ -40,7 +40,10 @@ create table catalog_sales
     cs_net_profit             double
 )
 partitioned by (cs_sold_date_sk bigint)
-stored as ${FILE};
+stored as ${FILE}
+location 's3a://mmux/${DIR}/catalog_sales';
+
+alter table catalog_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
 
 from ${SOURCE}.catalog_sales cs
 insert overwrite table catalog_sales partition (cs_sold_date_sk) 
