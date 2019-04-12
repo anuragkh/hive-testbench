@@ -5,7 +5,7 @@ drop table if exists store;
 
 create table store
 stored as ${FILE}
-location 's3a://mmux/${DIR}/store'
+location 's3://jiffy-hive-tables/${DIR}/store'
 as select * from ${SOURCE}.store
 CLUSTER BY s_store_sk;
 

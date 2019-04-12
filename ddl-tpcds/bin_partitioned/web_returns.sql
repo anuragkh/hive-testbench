@@ -31,7 +31,7 @@ create table web_returns
 )
 partitioned by (wr_returned_date_sk       bigint)
 stored as ${FILE
-location 's3a://mmux/${DIR}/web_returns';
+location 's3://jiffy-hive-tables/${DIR}/web_returns';
 
 alter table web_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
 

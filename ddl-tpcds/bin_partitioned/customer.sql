@@ -5,7 +5,7 @@ drop table if exists customer;
 
 create table customer
 stored as ${FILE}
-location 's3a://mmux/${DIR}/customer'
+location 's3://jiffy-hive-tables/${DIR}/customer'
 as select * from ${SOURCE}.customer
 CLUSTER BY c_customer_sk;
 

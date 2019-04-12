@@ -27,7 +27,7 @@ create table store_returns
 )
 partitioned by (sr_returned_date_sk bigint)
 stored as ${FILE}
-location 's3a://mmux/${DIR}/store_returns';
+location 's3://jiffy-hive-tables/${DIR}/store_returns';
 
 alter table store_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
 

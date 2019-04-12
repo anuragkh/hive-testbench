@@ -34,7 +34,7 @@ create table catalog_returns
 )
 partitioned by (cr_returned_date_sk bigint)
 stored as ${FILE}
-location 's3a://mmux/${DIR}/catalog_returns';
+location 's3://jiffy-hive-tables/${DIR}/catalog_returns';
 
 alter table catalog_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
 

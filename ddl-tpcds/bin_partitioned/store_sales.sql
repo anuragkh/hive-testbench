@@ -30,7 +30,7 @@ create table store_sales
 )
 partitioned by (ss_sold_date_sk bigint)
 stored as ${FILE}
-location 's3a://mmux/${DIR}/store_sales';
+location 's3://jiffy-hive-tables/${DIR}/store_sales';
 
 alter table store_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
 

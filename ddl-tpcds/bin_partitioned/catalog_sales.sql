@@ -41,7 +41,7 @@ create table catalog_sales
 )
 partitioned by (cs_sold_date_sk bigint)
 stored as ${FILE}
-location 's3a://mmux/${DIR}/catalog_sales';
+location 's3://jiffy-hive-tables/${DIR}/catalog_sales';
 
 alter table catalog_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
 

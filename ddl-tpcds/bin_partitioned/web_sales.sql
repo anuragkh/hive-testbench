@@ -41,7 +41,7 @@ create table web_sales
 )
 partitioned by (ws_sold_date_sk           bigint)
 stored as ${FILE}
-location 's3a://mmux/${DIR}/web_sales';
+location 's3://jiffy-hive-tables/${DIR}/web_sales';
 
 alter table web_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
 

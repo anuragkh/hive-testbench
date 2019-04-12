@@ -70,7 +70,7 @@ hadoop fs -chmod -R 777  ${DIR}/${SCALE}
 
 echo "TPC-DS text data generation complete."
 
-HIVE="beeline -n hive -u 'jdbc:hive2://localhost:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2?tez.queue.name=default' "
+HIVE="hive"
 
 # Create the text/flat tables as external tables. These will be later be converted to ORCFile.
 echo "Loading text data into external tables."
@@ -82,7 +82,7 @@ if [ "X$FORMAT" = "X" ]; then
 fi
 
 LOAD_FILE="load_${FORMAT}_${SCALE}.mk"
-SILENCE="2> /dev/null 1> /dev/null" 
+SILENCE=""
 if [ "X$DEBUG_SCRIPT" != "X" ]; then
 	SILENCE=""
 fi
@@ -102,6 +102,7 @@ do
 	    --hivevar DB=tpcds_bin_partitioned_${FORMAT}_${SCALE} --hivevar SOURCE=tpcds_text_${SCALE} \
             --hivevar SCALE=${SCALE} \
 	    --hivevar REDUCERS=${REDUCERS} \
+            --hivevar DIR=${DIR} \
 	    --hivevar FILE=${FORMAT}"
 	echo -e "${t}:\n\t@$COMMAND $SILENCE && echo 'Optimizing table $t ($i/$total).'" >> $LOAD_FILE
 	i=`expr $i + 1`
@@ -112,6 +113,7 @@ do
 	COMMAND="$HIVE  -i settings/load-partitioned.sql -f ddl-tpcds/bin_partitioned/${t}.sql \
 	    --hivevar DB=tpcds_bin_partitioned_${FORMAT}_${SCALE} \
             --hivevar SCALE=${SCALE} \
+            --hivevar DIR=${DIR} \
 	    --hivevar SOURCE=tpcds_text_${SCALE} --hivevar BUCKETS=${BUCKETS} \
 	    --hivevar RETURN_BUCKETS=${RETURN_BUCKETS} --hivevar REDUCERS=${REDUCERS} --hivevar FILE=${FORMAT}"
 	echo -e "${t}:\n\t@$COMMAND $SILENCE && echo 'Optimizing table $t ($i/$total).'" >> $LOAD_FILE
