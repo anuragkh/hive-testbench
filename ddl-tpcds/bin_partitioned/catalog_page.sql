@@ -5,7 +5,4 @@ drop table if exists catalog_page;
 
 create table catalog_page
 stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/catalog_page'
 as select * from ${SOURCE}.catalog_page;
-
-alter table catalog_page set TBLPROPERTIES('EXTERNAL'='TRUE');

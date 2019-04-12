@@ -40,10 +40,7 @@ create table web_sales
     ws_net_profit             double
 )
 partitioned by (ws_sold_date_sk           bigint)
-stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/web_sales';
-
-alter table web_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
+stored as ${FILE};
 
 from ${SOURCE}.web_sales ws
 insert overwrite table web_sales partition (ws_sold_date_sk) 

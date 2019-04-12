@@ -40,10 +40,7 @@ create table catalog_sales
     cs_net_profit             double
 )
 partitioned by (cs_sold_date_sk bigint)
-stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/catalog_sales';
-
-alter table catalog_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
+stored as ${FILE};
 
 from ${SOURCE}.catalog_sales cs
 insert overwrite table catalog_sales partition (cs_sold_date_sk) 

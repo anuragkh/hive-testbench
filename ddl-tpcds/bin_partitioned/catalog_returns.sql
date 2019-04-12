@@ -33,10 +33,7 @@ create table catalog_returns
     cr_net_loss               double
 )
 partitioned by (cr_returned_date_sk bigint)
-stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/catalog_returns';
-
-alter table catalog_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
+stored as ${FILE};
 
 from ${SOURCE}.catalog_returns cr
 insert overwrite table catalog_returns partition(cr_returned_date_sk) 

@@ -29,10 +29,7 @@ create table store_sales
     ss_net_profit             double
 )
 partitioned by (ss_sold_date_sk bigint)
-stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/store_sales';
-
-alter table store_sales set TBLPROPERTIES('EXTERNAL'='TRUE');
+stored as ${FILE};
 
 from ${SOURCE}.store_sales ss
 insert overwrite table store_sales partition (ss_sold_date_sk) 

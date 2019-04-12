@@ -5,7 +5,4 @@ drop table if exists promotion;
 
 create table promotion
 stored as ${FILE}
-location 's3://jiffy-hive-tables/${DIR}/promotion'
 as select * from ${SOURCE}.promotion;
-
-alter table promotion set TBLPROPERTIES('EXTERNAL'='TRUE');

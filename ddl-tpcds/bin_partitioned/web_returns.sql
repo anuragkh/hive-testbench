@@ -30,10 +30,7 @@ create table web_returns
     wr_net_loss               double
 )
 partitioned by (wr_returned_date_sk       bigint)
-stored as ${FILE
-location 's3://jiffy-hive-tables/${DIR}/web_returns';
-
-alter table web_returns set TBLPROPERTIES('EXTERNAL'='TRUE');
+stored as ${FILE};
 
 from ${SOURCE}.web_returns wr
 insert overwrite table web_returns partition (wr_returned_date_sk)
